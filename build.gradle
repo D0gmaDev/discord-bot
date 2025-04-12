@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'fr.rezoleo'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.discord4j:discord4j-core:3.2.7'
+    implementation 'io.github.ollama4j:ollama4j:1.0.100'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
