@@ -1,4 +1,5 @@
 {
-  "token": "TOKEN_HERE",
-  "model": "gemma3"
+  "discord_token": "discord-token-here",
+  "ollama_host": "http://localhost:11434",
+  "llm_model": "gemma3"
 }

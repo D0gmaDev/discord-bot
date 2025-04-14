@@ -1,5 +1,6 @@
 package fr.rezoleo.discord;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -10,17 +11,25 @@ public class Config {
 
     private static final String PATH = "config.json";
 
-    @SuppressWarnings("unused")
-    private String token;
-    @SuppressWarnings("unused")
-    private String model;
+    @JsonProperty("discord_token")
+    private String discordToken;
 
-    public String getToken() {
-        return this.token;
+    @JsonProperty("ollama_host")
+    private String ollamaHost;
+
+    @JsonProperty("llm_model")
+    private String llmModel;
+
+    public String getDiscordToken() {
+        return this.discordToken;
     }
 
-    public String getModel() {
-        return this.model;
+    public String getOllamaHost() {
+        return this.ollamaHost;
+    }
+
+    public String getLLMModel() {
+        return this.llmModel;
     }
 
     public static Optional<Config> loadConfig() {
