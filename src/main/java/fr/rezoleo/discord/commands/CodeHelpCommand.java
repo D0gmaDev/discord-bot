@@ -8,6 +8,7 @@ import discord4j.discordjson.json.ApplicationCommandOptionData;
 import discord4j.discordjson.json.ApplicationCommandRequest;
 import io.github.ollama4j.OllamaAPI;
 import io.github.ollama4j.exceptions.OllamaBaseException;
+import io.github.ollama4j.models.generate.OllamaStreamHandler;
 import io.github.ollama4j.utils.OptionsBuilder;
 import io.github.ollama4j.utils.PromptBuilder;
 
@@ -63,10 +64,18 @@ public class CodeHelpCommand implements BotCommand {
                         .add(question);
 
         Thread.ofVirtual().start(() -> {
+            OllamaStreamHandler handler = response -> {
+                String endSequence = response.endsWith("```") ? "" : "\n```"; // end the code block if necessary
+                String updatedMessage = "## " + question + '\n' + response + endSequence;
+
+                event.getReply().blockOptional().ifPresentOrElse(
+                        msg -> event.editReply(updatedMessage).block(),
+                        () -> event.createFollowup(updatedMessage).block()
+                );
+            };
+
             try {
-                String response = this.api.generate(this.model, promptBuilder.build(), false, new OptionsBuilder().build()).getResponse();
-                String message = "## " + question + '\n' + response;
-                event.createFollowup(message).subscribe();
+                this.api.generate(this.model, promptBuilder.build(), false, new OptionsBuilder().build(), handler);
             } catch (OllamaBaseException | IOException | InterruptedException e) {
                 e.printStackTrace();
             }
