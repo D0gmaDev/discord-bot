@@ -13,6 +13,7 @@ import io.github.ollama4j.utils.OptionsBuilder;
 import io.github.ollama4j.utils.PromptBuilder;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class CodeHelpCommand implements BotCommand {
 
@@ -65,7 +66,7 @@ public class CodeHelpCommand implements BotCommand {
 
         Thread.ofVirtual().start(() -> {
             OllamaStreamHandler handler = response -> {
-                String endSequence = response.endsWith("```") ? "" : "\n```"; // end the code block if necessary
+                String endSequence = codeEnded(response) ? "" : "\n```"; // end the code block if necessary
                 String updatedMessage = "## " + question + '\n' + response + endSequence;
 
                 event.getReply().blockOptional().ifPresentOrElse(
@@ -80,5 +81,11 @@ public class CodeHelpCommand implements BotCommand {
                 e.printStackTrace();
             }
         });
+    }
+
+    private static final Pattern END_PATTERN = Pattern.compile(".*```(\n)*$");
+
+    private static boolean codeEnded(String code) {
+        return END_PATTERN.matcher(code).find();
     }
 }
