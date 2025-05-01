@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Optional;
 
 public class Config {
@@ -20,6 +21,9 @@ public class Config {
     @JsonProperty("llm_model")
     private String llmModel;
 
+    @JsonProperty("ping_list")
+    private List<String> pingList;
+
     public String getDiscordToken() {
         return this.discordToken;
     }
@@ -30,6 +34,10 @@ public class Config {
 
     public String getLLMModel() {
         return this.llmModel;
+    }
+
+    public List<String> getPingList() {
+        return this.pingList;
     }
 
     public static Optional<Config> loadConfig() {

@@ -29,7 +29,10 @@ cd discord-bot
 {
     "discord_token": "your-discord-bot-token",
     "ollama_host": "http://localhost:11434",
-    "llm_model": "gemma3"
+   "llm_model": "gemma3",
+   "ping_list": [
+      "https://google.com/"
+   ]
 }
 ```
 
@@ -46,6 +49,7 @@ The bot requires a `config.json` file with the following parameters:
 - `discord_token`: Your Discord bot token
 - `ollama_host`: URL of your Ollama instance (default: http://localhost:11434)
 - `llm_model`: The LLM model to use (default: gemma3)
+- `ping_list`: The websites to track
 
 ## Usage
 

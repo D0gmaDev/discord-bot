@@ -1,5 +1,15 @@
 {
   "discord_token": "discord-token-here",
   "ollama_host": "http://localhost:11434",
-  "llm_model": "gemma3"
+  "llm_model": "gemma3",
+  "ping_list": [
+    "https://rezoleo.fr/",
+    "https://poly.rezoleo.fr/",
+    "https://vault.rezoleo.fr/",
+    "https://paingouin.rezoleo.fr/",
+    "https://my.le-clap.fr/",
+    "https://absinthe.rezoleo.fr/",
+    "https://centraliz.it/",
+    "https://centraleia.fr/"
+  ]
 }

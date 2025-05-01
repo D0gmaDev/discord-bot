@@ -5,10 +5,12 @@ import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import fr.rezoleo.discord.commands.BotCommand;
 import fr.rezoleo.discord.commands.CodeHelpCommand;
+import fr.rezoleo.discord.commands.PingCommand;
 import io.github.ollama4j.OllamaAPI;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,7 +30,8 @@ public class Main {
 
         //REGISTER COMMANDS
         Map<String, BotCommand> commands = Map.of(
-                "code", new CodeHelpCommand(ollamaAPI, model)
+                "code", new CodeHelpCommand(ollamaAPI, model),
+                "ping", new PingCommand(config.map(Config::getPingList).orElse(List.of()))
         );
 
         discordClient.withGateway(client ->
